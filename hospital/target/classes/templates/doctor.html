@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor</title>
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <style>
+        .sidenav {
+  width: 100%;
+  position: fixed;
+  height: 80px;
+  background-color: rgb(70, 130, 180);
+  overflow-x: visible;
+}
+.sidenav a {
+  padding: 6px 8px 6px 20px;
+  text-decoration: none;
+  font-size: 30px;
+  color: rgb(57,79, 71);
+  display: inline;
+}
+.sidenav a:hover {
+  color: rgb(135, 216, 230);
+}
+.separate {
+   font-family: "Lucida Sans Unicode", "Lucida Grande", rgb(135, 216, 230);
+   text-align: left;
+   width: 100%;
+   border-collapse: separate;
+   border-spacing: 5px;
+   background: rgb(232, 234, 246);
+   color: #656665;
+   border: 16px solid rgb(232, 234, 246);
+   border-radius: 20px;
+}
+.separate th {
+   font-size: 18px;
+   padding: 10px;
+}
+.separate td {
+   background: rgb(197, 202, 233);
+   padding: 10px;
+}
+.section {
+  margin-left: 160px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+    </style>
+</head>
+<body bgcolor="seashell">
+<div class="sidenav">
+    <a th:href="@{/doctor/new}">Новая карточка</a>
+    <a th:href="@{/home}">Назад</a>
+    <a th:href="@{/logout}">Выйти</a>
+</div>
+<div class="section">
+    <h1> Карточки </h1>
+    <table class="separate">
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Дата рождения</th>
+            <th>Номер полиса</th>
+            <th> </th>
+            <th> </th>
+        </tr>
+        <tbody>
+        <tr th:each="card: ${cards}">
+            <td th:text="${card.firstName}"></td>
+            <td th:text="${card.lastName}"></td>
+            <td th:text="${card.fathersName}"></td>
+            <td th:text="${card.data}"></td>
+            <td th:text="${card.number}"></td>
+            <td><a th:href="@{'/doctor/'+${card.id}}" class="button">Удалить</a></td>
+            <td><a th:href="@{'/doctor/edit/'+${card.id}}" class="button">Редактировать</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

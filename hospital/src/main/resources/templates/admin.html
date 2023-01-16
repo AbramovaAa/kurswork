@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <style>
+        .sidenav {
+  width: 100%;
+  position: fixed;
+  height: 80px;
+  background-color: rgb(70, 130, 180);
+  overflow-x: visible;
+}
+.sidenav a {
+  padding: 6px 8px 6px 20px;
+  text-decoration: none;
+  font-size: 30px;
+  color: rgb(57,79, 71);
+  display: inline;
+}
+.sidenav a:hover {
+  color: rgb(135, 216, 230);
+}
+.separate {
+   font-family: "Lucida Sans Unicode", "Lucida Grande", rgb(135, 216, 230);
+   text-align: left;
+   width: 100%;
+   border-collapse: separate;
+   border-spacing: 5px;
+   background: rgb(232, 234, 246);
+   color: #656665;
+   border: 16px solid rgb(232, 234, 246);
+   border-radius: 20px;
+}
+.separate th {
+   font-size: 18px;
+   padding: 10px;
+}
+.separate td {
+   background: rgb(197, 202, 233);
+   padding: 10px;
+}
+
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+    </style>
+</head>
+<body>
+<div class="sidenav">
+    <a th:href="@{/home}">Назад</a>
+    <a th:href="@{/logout}">Выйти</a>
+</div>
+<div class="section">
+    <h1> Пользователи </h1>
+    <table class="separate">
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Email</th>
+            <th>Роль</th>
+            <th> </th>
+        </tr>
+        <tbody>
+        <tr th:each="user: ${users}">
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.Email}"></td>
+            <td>
+                <form method="post" role="form" th:action="@{'/admin/'+${user.id}}">
+                    <select class="form-control" id="role" th:name="role_name">
+                        <option th:value="${user.role_name}" th:text="${user.role_name}"></option>
+                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                    </select>
+                    <input type="submit" class="button " value="Сохранить">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
